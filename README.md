@@ -3,7 +3,7 @@ BIOC8145 Bioinformatics Module
 
 
 **Course Director:** Stefan Bekiranov (sb3de@virginia.edu)  
-**Office:** Jordan Hall 6069  
+**Office:** Pinn Hall 6069  
 **Phone:** 982-6631  
 **Office Hours:** Upon Request  
 
