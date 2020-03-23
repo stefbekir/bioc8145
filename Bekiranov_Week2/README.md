@@ -1,4 +1,4 @@
-This directory contains the following files for week 2 of BIOC 8145 where we will cover R programming:
+This directory contains the following files for week 2 of BIOC 8145 where we will cover R programming and a brief statistical overview:
 
 **BIOC_8145_Intro_R.pdf**: R Lecture
 
