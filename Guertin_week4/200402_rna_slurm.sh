@@ -1,9 +1,9 @@
 #!/bin/bash 
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=30
+#SBATCH --cpus-per-task=10
 #SBATCH -t 72:00:00
-#SBATCH --output=bioc8145_guertin_lecture
+#SBATCH --output=bioc8145_guertin_lecture_mjg7y
 #SBATCH --partition=standard
 #SBATCH -A bioc8145
 
