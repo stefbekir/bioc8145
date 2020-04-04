@@ -53,8 +53,7 @@ deseq.gsea.workflow <- function(counts.matrix, batch = FALSE, sample.conditions,
       useDingbats = FALSE, width=6.83, height=3.83);
     print(
         plotEnrichment(myGO[[fgRes[order(fgRes$NES, decreasing =TRUE),][[1]][1]]],
-                       gene.list) + l
-        abs(title=fgRes[order(fgRes$NES, decreasing =TRUE),][[1]][1])
+                       gene.list) + labs(title=fgRes[order(fgRes$NES, decreasing =TRUE),][[1]][1])
     )
     dev.off()
     pdf(paste("GSEA_second_", name.analysis, ".pdf", sep=''), 
