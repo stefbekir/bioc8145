@@ -4,4 +4,6 @@ Homework
 
 2) List two questions that are more appropriate for asking the instructor and I will try to answer them.
 
-Note that this repository and vignette will not be complete until the Friday before our first class.
+Optional, but encouraged:
+
+Let me know if something in the vignette could be clarified or if there is a typo. Really any suggestions for improvement are welcome.
