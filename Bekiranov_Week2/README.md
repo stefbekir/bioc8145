@@ -2,6 +2,8 @@ This directory contains the following files for week 2 of BIOC 8145 where we wil
 
 **BIOC_8145_Intro_R.pdf**: R Lecture
 
+**BIOC_8145_Intro_R.R**: R script containing the commands shown in R Lecture along with further exploration. 
+
 **Bekiranov_Assignment2_R.pdf**: R Assignments
 
 **R_Lab.pdf**: One of four R tutorials referenced in Bekiranov_Assignments2_R.pdf
