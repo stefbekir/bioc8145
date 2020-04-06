@@ -15,3 +15,5 @@ This directory contains the following files for week 2 of BIOC 8145 where we wil
 **R_Beginners.pdf**: R for Beginners Reference Manual
 
 **R_Introduction.pdf**: Introduction to R Reference Manual
+
+**BIOC8145_Stats.pdf**: Stats Lecture
