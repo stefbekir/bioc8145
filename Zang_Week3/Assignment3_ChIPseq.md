@@ -22,9 +22,7 @@ You can find 2 data files in this directory:
         $ fastqc -o _$OUTDIR__SRR3728822.fastq.gz_
 
 2. Now let's map the sequence reads to the human genome (hg38) using **bowtie2**. For each dataset, list the total number of reads, total number of aligned reads, and the overall alignment rate. (30 pts)
-
 Note: bowtie2 index can be found at [https://faculty.virginia.edu/zanglab/bioc8145/bowtie2\_index/](https://faculty.virginia.edu/zanglab/bioc8145/bowtie2_index/)
-
 Copy bowtie2 index to your designated directory (INDEX\_DIR)
 
         #Sample commands:
