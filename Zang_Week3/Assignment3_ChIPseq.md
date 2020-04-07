@@ -22,7 +22,9 @@ You can find 2 data files in this directory:
         $ fastqc -o _$OUTDIR__SRR3728822.fastq.gz_
 
 2. Now let's map the sequence reads to the human genome (hg38) using **bowtie2**. For each dataset, list the total number of reads, total number of aligned reads, and the overall alignment rate. (30 pts)
+
 Note: bowtie2 index can be found at [https://faculty.virginia.edu/zanglab/bioc8145/bowtie2\_index/](https://faculty.virginia.edu/zanglab/bioc8145/bowtie2_index/)
+
 Copy bowtie2 index to your designated directory (INDEX\_DIR)
 
         #Sample commands:
@@ -43,7 +45,7 @@ Copy bowtie2 index to your designated directory (INDEX\_DIR)
 
 MEME suite for ChIP-seq analysis can be accessed at[http://meme-suite.org/tools/meme-chip](http://meme-suite.org/tools/meme-chip)
 
-5. (Bonus 1) Can you quantify the genome-wide distribution of the identified peaks? i.e., how many peaks are located in gene promoter regions, say, \&lt; 3kb from any transcription start site (TSS)? How many peaks are located in intronic regions or intergenic regions? Based on the observation, do you think AR is a promoter-binding factor or a distal enhancer-binding factor? (+20 pts)
+5. (Bonus 1) Can you quantify the genome-wide distribution of the identified peaks? i.e., how many peaks are located in gene promoter regions, say, <=3kb from any transcription start site (TSS)? How many peaks are located in intronic regions or intergenic regions? Based on the observation, do you think AR is a promoter-binding factor or a distal enhancer-binding factor? (+20 pts)
 
 Hint: You can use an R-package called ChIPseeker [https://www.bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html](https://www.bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html)
 
