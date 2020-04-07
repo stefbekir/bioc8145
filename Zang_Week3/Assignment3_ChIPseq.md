@@ -1,6 +1,6 @@
 # BIOC8145 Assignment #3 #
 
-# Analysis of ChIP-seq data #
+## Analysis of ChIP-seq data ##
 
 (100 pts total; Due Monday 4/13/2020)
 
