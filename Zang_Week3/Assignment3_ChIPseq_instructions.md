@@ -2,7 +2,7 @@
 
 # Instructions #
 
-*0.* Setup a working directory and download the data
+**0.** Setup a working directory and download the data
 You can create a folder/directory in your scratch storage space to work on this analysis. After you log on to Rivanna:
 
   	$	cd /scratch/{COMPUTINGID}
@@ -53,7 +53,7 @@ For the following analysis, it might be easier to get an immediate feedback from
 This will start an interactive job session and put you to a computing node, with 4 CPUs and a time limit of 4 hours. When you finish your analysis, you can exit the interactive job by type in exit
 
 
-*1. FastQC*:
+**1. FastQC**:
 
   	$	module load fastqc
   	$	fastqc LNCaP_AR_DHT.fastq.gz -o ./
@@ -66,7 +66,7 @@ You can download the results to the local computer and view it on a web browser.
 Here is some information about how to interpret fastqc result: [https://www.youtube.com/watch?v=GnWSXwQeJ_U](https://www.youtube.com/watch?v=GnWSXwQeJ_U)
 
 
-*2. bowtie2* Sequence alignment:
+**2. bowtie2** Sequence alignment:
 We will first load the necessary modules.
 
 	$	module load gcc
@@ -88,7 +88,7 @@ At the end of the job running, you will see some summary information on the scre
 	98.37% overall alignment rate
 
 
-*3. macs2* peak calling:
+**3. macs2** peak calling:
 We will call peaks using macs2 (using mostly default parameters) from the bowtie2 output SAM format data:
 
 	$	module load macs2
@@ -103,7 +103,7 @@ macs2 peak calling output data: https://faculty.virginia.edu/zanglab/bioc8145/da
 				https://faculty.virginia.edu/zanglab/bioc8145/data/test_summits.bed 
 
 
-*4.* The goal is to discover DNA sequence motifs at the transcription factor binding sites (ChIP-seq peaks). Let’s first find the top 5000 strongest AR binding sites (top 5000 peaks) from the macs2 peak calling result. We can use the unix command sort: 
+**4.** The goal is to discover DNA sequence motifs at the transcription factor binding sites (ChIP-seq peaks). Let’s first find the top 5000 strongest AR binding sites (top 5000 peaks) from the macs2 peak calling result. We can use the unix command sort: 
 
 	$	sort -n -r -k 5 AR_peaks.narrowPeak | head -5000 > AR_peaks_top5k.narrowPeak
 
@@ -111,7 +111,7 @@ macs2 peak calling output data: https://faculty.virginia.edu/zanglab/bioc8145/da
 
 Here are 3 different approaches for motif discovery analysis. You can use any option or try them all if you are interested.
 
-Option 1: *MEME*
+Option 1: **MEME**
 Now we will get the DNA sequences from the coordinates of these peaks. Let’s first download the whole genome sequence for human genome version hg38.
 
 	$	wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
@@ -125,7 +125,7 @@ You can check the file hg38.fa, which contains DNA sequences of the whole human 
 
 The output file AR_peaks_top5k.fa will be uploaded to the MEME-ChIP web interface ( http://meme-suite.org/tools/meme-chip ). Note that MEME-ChIP will perform de novo motif discovery. After obtaining the motifs discovered, you can use TomTom ( http://meme-suite.org/tools/tomtom ) to compare the top enriched motifs with known motifs from a database, in order to match the de novo motifs with known TF binding motifs.
 
-Option 2: *HOMER*
+Option 2: **HOMER**
 HOMER (Hypergeometric Optimization of Motif EnRichment) is another useful tool for motif discovery. Let’s first install the HOMER package through conda, a Python package manager. If you don’t have conda installed, let’s install conda first:
 
 	$	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -142,15 +142,16 @@ Once HOMER is successfully installed, you can run this command for motif discove
 You can find more information here: http://homer.ucsd.edu/homer/ngs/peakMotifs.html 
 
 
-Option 3: *Cistrome AP*
+Option 3: **Cistrome AP**
 You can directly perform motif search analysis using a function installed in the Cistrome Analysis Pipeline (http://cistrome.org/ap ). You need to upload the BED format peak data (either peaks narrowPeak or summits.bed data files) to the system. In the left panel, look for 
+
 	CISTROME TOOLBOX -> Integrative Analysis -> MOTIF -> SeqPos motif tool
 	Then follow the interactive instructions to perform the analysis.
 
 
-*5.* We will measure the genome-wide distribution of the macs-identified peaks, i.e. compared the locations of the peaks with the locations of genes, especially the promoter regions of the genes (how close the peaks are to a transcription start site). You can use one of several different methods: 
+**5.** We will measure the genome-wide distribution of the macs-identified peaks, i.e. compared the locations of the peaks with the locations of genes, especially the promoter regions of the genes (how close the peaks are to a transcription start site). You can use one of several different methods: 
 
-Option 1: *ChIP-seeker*
+Option 1: **ChIP-seeker**
 ChIP-seeker is an R package on Bioconductor. We will install the packages in R if you don’t have it already. In the R environment, run the installation commands:
 
 	> install.packages("BiocManager")
@@ -183,17 +184,18 @@ We can use a pre-calculated tagMatrix to speed up a little:
 	> head(tagMatrix)
 	> tagHeatmap(tagMatrix, xlim=c(-3000, 3000), color="red")
 
-Option 2: *Cistrome AP*
+Option 2: **Cistrome AP**
 If you’ve tried to use Cistrome Analysis pipeline (http://cistrome.org/ap ) for Question 4, you could also try another tool on Cistrome AP to get the genomic distribution of the peaks. In the left panel, look for:
+
 	CISTROME TOOLBOX -> Integrative Analysis -> ASSOCIATION STUDY -> CEAS: Enrichment on chromosome and annotation
 
 Follow the instructions in the middle panel to specify the uploaded peak data file as well as parameters (it’s always a good idea to begin with all default parameters), you will get the analysis results.
 
-Option 3: *GREAT*
+Option 3: **GREAT**
 GREAT (Genomic Regions Enrichment of Annotations Tool)( http://great.stanford.edu/public/html/ ) is another web-based tool to perform this analysis among other functions such as gene ontology analyses. Follow the instructions on the website to upload the peak file (BED format, i.e., either narrowPeak or summits.bed from macs2 output) and specify the genome version (hg38), you will get the analysis report. Although the genomic distribution analysis on GREAT has a default setting of 5kb to TSS instead of 3kb, the general trend is similar.
 
 
-*6.* In order to calculate the FRiP score, we need to figure out how many sequence reads are in macs identified peak regions. One way to do this is to take advantage of the “intersect” function in bedtools, i.e, identify the entries from one BED file that intersect (overlap) with regions in the other BED file. We first load the modules:
+**6.** In order to calculate the FRiP score, we need to figure out how many sequence reads are in macs identified peak regions. One way to do this is to take advantage of the “intersect” function in bedtools, i.e, identify the entries from one BED file that intersect (overlap) with regions in the other BED file. We first load the modules:
 
 	$	module load gcc
 	$	module load samtools
@@ -206,7 +208,7 @@ We will convert the bowtie2 generated mapped read SAM file to BED format that ar
 
 Then we use intersect function to find all the reads that are overlapped with AR narrow peaks: 
 
-	$	bedtools intersect -a LNCaP_AR_DHT.bed -b AR_peaks.narrowPeak -wa > 	LNCaP_AR_DHT_inpeak.bed
+	$	bedtools intersect -a LNCaP_AR_DHT.bed -b AR_peaks.narrowPeak -wa > LNCaP_AR_DHT_inpeak.bed
 
 Finally, count the reads and calculate the FRiP score!
 
