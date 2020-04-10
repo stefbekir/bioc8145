@@ -98,9 +98,9 @@ You can see the process of the job running, and obtained the output files.
 
 Note: If you encounter any problems for obtaining the read mapping and peak calling results. You can find these sample data files for you to work on the following questions 4-6.
 
-	Mapped reads in BED format: [https://faculty.virginia.edu/zanglab/bioc8145/data/mapped_reads.bed.gz](https://faculty.virginia.edu/zanglab/bioc8145/data/mapped_reads.bed.gz)
-	macs2 peak calling output data: [https://faculty.virginia.edu/zanglab/bioc8145/data/test_peaks.narrowPeak] (https://faculty.virginia.edu/zanglab/bioc8145/data/test_peaks.narrowPeak)
-				[https://faculty.virginia.edu/zanglab/bioc8145/data/test_summits.bed] (https://faculty.virginia.edu/zanglab/bioc8145/data/test_summits.bed)
+Mapped reads in BED format: [https://faculty.virginia.edu/zanglab/bioc8145/data/mapped_reads.bed.gz](https://faculty.virginia.edu/zanglab/bioc8145/data/mapped_reads.bed.gz)
+macs2 peak calling output data: [https://faculty.virginia.edu/zanglab/bioc8145/data/test_peaks.narrowPeak] (https://faculty.virginia.edu/zanglab/bioc8145/data/test_peaks.narrowPeak)
+			[https://faculty.virginia.edu/zanglab/bioc8145/data/test_summits.bed] (https://faculty.virginia.edu/zanglab/bioc8145/data/test_summits.bed)
 
 
 **4.** The goal is to discover DNA sequence motifs at the transcription factor binding sites (ChIP-seq peaks). Let’s first find the top 5000 strongest AR binding sites (top 5000 peaks) from the macs2 peak calling result. We can use the unix command sort: 
@@ -149,7 +149,8 @@ Option 3: **Cistrome AP**
 You can directly perform motif search analysis using a function installed in the Cistrome Analysis Pipeline (http://cistrome.org/ap ). You need to upload the BED format peak data (either peaks narrowPeak or summits.bed data files) to the system. In the left panel, look for 
 
 	CISTROME TOOLBOX -> Integrative Analysis -> MOTIF -> SeqPos motif tool
-	Then follow the interactive instructions to perform the analysis.
+
+Then follow the interactive instructions to perform the analysis.
 
 
 **5.** We will measure the genome-wide distribution of the macs-identified peaks, i.e. compared the locations of the peaks with the locations of genes, especially the promoter regions of the genes (how close the peaks are to a transcription start site). You can use one of several different methods: 
