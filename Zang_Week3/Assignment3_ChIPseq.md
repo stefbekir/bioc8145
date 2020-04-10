@@ -1,6 +1,6 @@
 # BIOC8145 Assignment 3: Analysis of ChIP-seq data
 
-(100 pts total; Due Monday 4/13/2020)
+(100 pts total; Due Friday 4/17/2020)
 
 The androgen receptor (AR) is a transcription factor (TF) activated by androgenic hormones (e.g., dihydrotestosterone, DHT) and regulates expression of keys genes in prostate differentiation and function. Aberrant elevation of AR signaling is a crucial driver of prostate cancer. Determining the genome-wide binding pattern of AR is important for understanding the oncogenic gene regulation in prostate cancer cells. In this assignment, you will explore the genomic binding profile of AR in a DHT-treated prostate cancer cell line, LNCaP (Lymph Node Carcinoma of the Prostate), by analyzing some ChIP-seq data using the tools you just learned.
 
