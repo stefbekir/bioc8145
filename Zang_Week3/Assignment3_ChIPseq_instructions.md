@@ -92,7 +92,7 @@ At the end of the job running, you will see some summary information on the scre
 We will call peaks using macs2 (using mostly default parameters) from the bowtie2 output SAM format data:
 
 	$	module load macs2
-	$	macs2 callpeak -g hs --bdg -q 0.05 -n AR --outdir ./ -t LNCaP_AR_DHT.sam –c LNCaP_input.sam
+	$	macs2 callpeak -g hs --bdg -q 0.05 -n AR --outdir ./ -t LNCaP_AR_DHT.sam -c LNCaP_input.sam
 
 You can see the process of the job running, and obtained the output files.
 
