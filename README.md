@@ -27,7 +27,7 @@ Course materials (including lectures, reading and assignments) will be made avai
 **Week 1 (3/25 – 3/27):** Introduction to UNIX & R Programming (Bekiranov)  
 **Week 2 (3/30 – 4/03):** R Programming & Statistics Overview (Bekiranov)  
 **Week 3 (4/06 – 4/10):** Analysis of ChIP-seq Data (Zang)  
-**Week 4 (4/13 – 4/17):** Analysis of RNA-seq and PRO-seq Data (Guertin)  
+**Week 4 (4/13 – 4/17):** Analysis of RNA-seq (Guertin)  
 **Week 5 (4/20 – 4/24):** Analysis of ATAC-seq Data (Sheffield)  
 **Week 6 (4/27 – 5/01):** Analysis of scRNA-seq Data (Alencar)  
 **Week 7 (5/04 – 5/08):** Single Nucleotide and Structural Variant Analysis (Ratan)  
