@@ -7,3 +7,5 @@ Homework
 Optional, but encouraged:
 
 Let me know if something in the vignette could be clarified or if there is a typo. Really any suggestions for improvement are welcome.
+
+lecture 1: https://drive.google.com/open?id=1V7DWmM75OiSjU4If5sFFHjhPvhvHOFnU
