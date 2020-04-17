@@ -1,7 +1,5 @@
 ## Assignment 5: ATAC-seq
 
-Due: Friday 04/24/02
-
 Total points: 100
 
 1. Read [From reads to insight: a hitchhiker’s guide to ATAC-seq data analysis](https://doi.org/10.1186/s13059-020-1929-3) (10pts)
