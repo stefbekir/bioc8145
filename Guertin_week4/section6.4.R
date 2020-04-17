@@ -28,7 +28,7 @@ plotPCAlattice(pca.plot, file = 'PCA_A549_dex_lattice.pdf')
 save.image(file = '200404_R_mjg_1238pm.Rdata')
 
 
-#this code is doscontinuous in the vignette:
+#this code is discontinuous in the vignette:
 
 DE.results.all.4reps = results(dds)
 
