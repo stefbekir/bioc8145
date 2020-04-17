@@ -16,7 +16,7 @@ Total points: 100
 
 3-3. How many of the reads in the tutorial aligned to chromosome 1? (10pts)
 
-3-3. Which chromosome had the highest number of called peaks? (10pts)
+3-4. Which chromosome had the highest number of called peaks? (10pts)
 
 4. Go through the [R Analysis vignette](R_analysis_tutorial.md) in this repository, and answer the following questions:
 
