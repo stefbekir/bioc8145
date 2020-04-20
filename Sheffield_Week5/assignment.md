@@ -34,4 +34,4 @@ Go through the [R Analysis vignette](R_analysis_tutorial.md) in this repository,
 
 ## Bonus question
 
-11. Bonus: Paste a list of all available remote assets hosted by the refgenie server for the 'mm10' genome (Hint, you can use `refgenie --help` `refgenie listr --help` to see how the command works). (10pts)
+11. Bonus: Go through the [refgenie tutorial](refgenie_tutorial.md). Paste a list of all available remote assets hosted by the refgenie server for the 'mm10' genome (Hint, you can use `refgenie --help` `refgenie listr --help` to see how the command works). (10pts)

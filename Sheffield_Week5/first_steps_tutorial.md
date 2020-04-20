@@ -2,6 +2,13 @@
 
 ## Introduction and setup
 
+Request an allocation if you like:
+
+```
+ijob -A bioc8145 -p instructional -c 4 -t 1:00:00
+```
+
+
 First we'll create a folder for the tutorial and a subfolder for our raw data:
 
 ```
@@ -33,22 +40,25 @@ Let's run fastqc on our input files
 ```
 cd ..
 mkdir fastqc
+module load fastqc/0.11.5
 fastqc --noextract --outdir fastqc fastq/tutorial_r1.fastq.gz
 fastqc --noextract --outdir fastqc fastq/tutorial_r2.fastq.gz
 ```
 
-Now, let's clone the PEPATAC repository, which has some scripts we'll need
+Now, let's get the Nextera adapter sequence
 
 ```
-git clone https://github.com/databio/pepatac.git
+wget https://raw.githubusercontent.com/databio/pepatac/master/tools/NexteraPE-PE.fa
 ```
 
 ## Trim adapters (optional)
 
 Next we'll do adapter trimming. This is an optional step, so I won't show you how to install skewer, but you can go do it if you want. The tutorial files have already had their adapters trimmed, but this is how we'd do it if not:
 
+I pre-installed [skewer](https://github.com/relipmoc/skewer) for you on rivanna.
+
 ```
-skewer -f sanger -t 8 -m pe -x pepatac/tools/NexteraPE-PE.fa --quiet -o fastq/tutorial fastq/tutorial_r1.fastq.gz fastq/tutorial_r2.fastq.gz
+/project/bioc8145/week5/skewer/skewer -f sanger -t 1 -m pe -x NexteraPE-PE.fa --quiet -o fastq/tutorial fastq/tutorial_r1.fastq.gz fastq/tutorial_r2.fastq.gz
 ```
 
 You may want to run `fastqc` on your input files after trimming, to see how they look and if your trimming was successful.
@@ -59,43 +69,30 @@ You may want to run `fastqc` on your input files after trimming, to see how they
 Make sure you have `bowtie2` in your PATH. You can load it on rivanna like this:
 
 ```
-module load bowtie2
+module load gcc/7.1.0
+module load bowtie2/2.2.9
 ```
 
-To align with bowtie2, we require a bowtie2 index. There are many ways to get reference genome assembly assets, and you can download them directly from the bowtie2 authors, or from the [Illumina iGenomes project](https://support.illumina.com/sequencing/sequencing_software/igenome.html). Here, I want to show you an easier way: we'll use [refgenie](http://refgenie.databio.org), a tool developed by my lab.
+To align with bowtie2, we require a bowtie2 index. There are many ways to get reference genome assembly assets, and you can download them directly from the bowtie2 authors, or from the [Illumina iGenomes project](https://support.illumina.com/sequencing/sequencing_software/igenome.html). 
 
-Install refgenie with python how you would typically install a python package:
+If you're on rivanna, I've downloaded the index and placed it at `/project/bioc8145/bowtie2_index`. If you are interested, we recently developed a tool to help in downloading and manage reference indexes called *refgenie*. I posted a [refgenie tutorial](refgenie_tutorial.md) that you may find interesting. 
 
-```
-pip install --user refgenie
-```
-
-You can read more details in the [refgenie documentation](http://refgenie.databio.org), but for now, we just need to initialize a configuration file and then download the bowtie2 index with `refgenie pull`:
+For now, let's use the existing bowtie2 index in our alignment command:
 
 ```
-refgenie init -c refgenie.yaml
-refgenie pull -c refgenie.yaml hg38/bowtie2_index
+time bowtie2 -p 4 -x /project/bioc8145/week5/bowtie2_index/hg38 -1 fastq/tutorial_r1.fastq.gz -2 fastq/tutorial_r2.fastq.gz -S aligned.sam
 ```
 
-Now we have the index managed by refgenie. We can retrieve the local path to it with:
+## Shift reads
 
-```
-refgenie seek -c refgenie.yaml hg38/bowtie2_index
-```
-
-*Answer bonus question (optional)*
-
-So, let's use that in our alignment command:
-
-```
-bowtie2 -p 4 -x $(refgenie seek -c refgenie.yaml hg38/bowtie2_index) -1 fastq/tutorial_r1.fastq.gz -2 fastq/tutorial_r2.fastq.gz -S aligned.sam
-```
+As we discussed in the lecture, ATAC-seq reads are often shifted to account for a 9bp duplication in the transpose insertion. However, the adjustment is small and for simple peak calling, is probably not that important, and is commonly left out of basic ATAC analysis. Therefore, we'll skip the step here, but if you want to learn how to do it, you could try a tool like [alignmentSieve](https://deeptools.readthedocs.io/en/develop/content/tools/alignmentSieve.html).
 
 ## Check out some alignment statistics
 
 We might be interested in what percentage of our reads aligned to the mitochondria.
 
 ```
+module load samtools/1.10
 samtools sort aligned.sam | samtools view -S -b - > aligned.bam
 ```
 
@@ -104,15 +101,9 @@ samtools index aligned.bam
 samtools idxstats aligned.bam
 samtools idxstats aligned.bam | grep -we 'chrM'
 samtools idxstats aligned.bam | grep -we 'chrM' | cut -f 3
-samtools idxstats aligned.bam | cut -f 1-2 | awk '{print $1, 0, $2}' | grep -vwe 'chrM' -vwe 'chrMT' -vwe 'M' -vwe 'MT' -vwe 'rCRSd'
 ```
 
 *Answer question 5*
-
-
-## Shift reads
-
-As we discussed in the lecture, ATAC-seq reads are often shifted to account for a 9bp duplication in the transpose insertion. However, the adjustment is small and for simple peak calling, is probably not that important, and is commonly left out of basic ATAC analysis. Therefore, we'll skip the step here, but if you want to learn how to do it, you could try a tool like [alignmentSieve](https://deeptools.readthedocs.io/en/develop/content/tools/alignmentSieve.html).
 
 ## Peak calling
 
@@ -143,7 +134,7 @@ wc -l tutorial_peaks.narrowPeak
 How are they distributed across chromosomes?
 
 ```
-cut -f1 tutorial_peaks.narrowPeak | uniq -c | sort -k 1 -r
+cut -f1 tutorial_peaks.narrowPeak | uniq -c | sort -k 1 -n -r
 ```
 
 *Answer question 6*
