@@ -75,7 +75,7 @@ module load bowtie2/2.2.9
 
 To align with bowtie2, we require a bowtie2 index. There are many ways to get reference genome assembly assets, and you can download them directly from the bowtie2 authors, or from the [Illumina iGenomes project](https://support.illumina.com/sequencing/sequencing_software/igenome.html). 
 
-If you're on rivanna, I've downloaded the index and placed it at `/project/bioc8145/bowtie2_index`. If you are interested, we recently developed a tool to help in downloading and manage reference indexes called *refgenie*. I posted a [refgenie tutorial](refgenie_tutorial.md) that you may find interesting. 
+If you're on rivanna, I've downloaded the index and placed it at `/project/bioc8145/week5/bowtie2_index`. If you are interested, we recently developed a tool to help in downloading and manage reference indexes called *refgenie*. I posted a [refgenie tutorial](refgenie_tutorial.md) that you may find interesting. 
 
 For now, let's use the existing bowtie2 index in our alignment command:
 
@@ -116,7 +116,7 @@ module load macs2/2.1.2
 Use the `callpeak` function to call peaks:
 
 ```
-macs2 callpeak -t aligned.bam -n "tutorial" -g hs -f BAM -q 0.01 --shift 0 --nomodel
+macs2 callpeak -t aligned.bam -n "tutorial" -g hs -q 0.01 --shift 0 --nomodel
 ```
 
 Take a quick look at our peaks like this:
