@@ -27,7 +27,7 @@ zcat tutorial_r1.fastq.gz | head
 time zcat tutorial_r1.fastq.gz | head
 ```
 
-*Answer questions 3-1 and 3-2*
+*Answer questions 3 and 4*
 
 Let's run fastqc on our input files
 ```
@@ -107,7 +107,7 @@ samtools idxstats aligned.bam | grep -we 'chrM' | cut -f 3
 samtools idxstats aligned.bam | cut -f 1-2 | awk '{print $1, 0, $2}' | grep -vwe 'chrM' -vwe 'chrMT' -vwe 'M' -vwe 'MT' -vwe 'rCRSd'
 ```
 
-*Answer question 3-3*
+*Answer question 5*
 
 
 ## Shift reads
@@ -146,7 +146,7 @@ How are they distributed across chromosomes?
 cut -f1 tutorial_peaks.narrowPeak | uniq -c | sort -k 1 -r
 ```
 
-*Answer question 3-4*
+*Answer question 6*
 
 <!-- For fixed-width peaks, you could use these params: '--shift -75 --extsize 150 --nomodel --call-summits --nolambda --keep-dup all -p 0.01' -->
  

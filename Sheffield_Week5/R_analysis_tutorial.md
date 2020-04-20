@@ -27,7 +27,7 @@ zcat EBNA2_peaks.bed.gz | wc -l
 
 Notice, we can't use `wc -l` directly on the zipped file because it doesn't have lines. We have to decompress it first, which we are doing with `zcat`.
 
-*Answer question 4-1*
+*Answer question 7*
 
 To load this into R with `rtracklayer` it will be convenient to trim the file down to 3 columns. This type of modification will also be useful for putting this file into GREAT. Do it like this:
 
@@ -89,7 +89,7 @@ Here's what you would get out of base R:
 hist(w)
 ```
 
-*Answer question 4-2*
+*Answer question 8*
 
 
 ## Chromsome partition plot
@@ -137,7 +137,7 @@ op = calcOpenSignal(query, cellMatrix)
 plotOpenSignal(op)
 ```
 
-*Answer question 4-3*
+*Answer question 9*
 
 If you want to save this to a file, you can do that like this:
 
@@ -147,4 +147,4 @@ plotOpenSignal(op)
 dev.off()
 ```
 
-*Answer question 4-4*
+*Answer question 10*
