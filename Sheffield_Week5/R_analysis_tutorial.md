@@ -2,7 +2,14 @@
 
 ## Introduction and setup
 
-Navigate to a folder where you want to run this tutorial:
+On rivanna we can load up R like this:
+
+```
+module load gcc/8.3.0
+module load intel/18.0 intelmpi/18.0 R/3.6.0
+```
+
+Next, navigate to a folder where you want to run this tutorial:
 ```
 cd atacseq_tutorial
 ```
@@ -54,6 +61,10 @@ We'll be using the GenomicDistributions package, which is a package under develo
 ```
 devtools::install_github("databio/GenomicDistributions")
 ```
+
+If you don't have `devtools` installed, you may need to install it first with `install.packages("devtools")`.
+
+
 
 Now, let's load up the package and read in our query regions:
 
