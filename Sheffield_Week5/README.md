@@ -18,7 +18,6 @@ The assignment is due: Monday 04/27/2020
 - Introduction to chromatin accessibility
 - Challenges of studying regulatory DNA
 - Introduction to ATAC-seq protocol
-- Single-cell ATAC-seq
 - Basic steps of initial ATAC-seq analysis
 
 ### Resources
