@@ -38,8 +38,8 @@ The assignment is due: Monday 04/27/2020
 	- Partition distribution
 
 ### Resources
-- Slides: http://databio.org/slides/pepatac.html
-- Tutorial: (pending)
+- Slides: http://databio.org/slides/pipeline_pepatac.html
+- Tutorial: https://github.com/databio/atac_ebna2/blob/master/tutorial_basic.md
 
 ## Lecture 3 - ATAC-seq downstream processing
 

@@ -29,4 +29,6 @@ So, let's use that in our alignment command:
 bowtie2 -p 4 -x $(refgenie seek -c refgenie.yaml hg38/bowtie2_index) -1 fastq/tutorial_r1.fastq.gz -2 fastq/tutorial_r2.fastq.gz -S aligned.sam
 ```
 
+The advanrage of this is that we don't have to keep track of the path to the index because refgenie manages it for us. An entire lab group could use 1 refgenie config, so that a single copy of all the reference resources can be immediately used by all lab members.
+
 *Answer bonus question (optional)*
