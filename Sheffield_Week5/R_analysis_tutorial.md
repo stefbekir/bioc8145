@@ -60,6 +60,8 @@ R
 We'll be using the GenomicDistributions package, which is a package under development in my lab to help us visualize some properties of these regions. There are lots of other R packages that do similar types of analysis, and you could follow their vignettes, but I find this one the easiest to use. Install it with:
 
 ```
+BiocManager::install("GenomicRanges")
+BiocManager::install("Biostrings")
 devtools::install_github("databio/GenomicDistributions")
 ```
 

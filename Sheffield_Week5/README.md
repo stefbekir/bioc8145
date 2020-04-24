@@ -30,15 +30,14 @@ The assignment is due: Monday 04/27/2020
 - Pipelines
 - Pipeline steps
 - The problem of NuMts
-- Serial alignments and mtDNA
+- Serial alignments
 - Quality control outputs
 	- TSS enrichment plot
 	- Fragment distribution
-	- Partition distribution
 
 ### Resources
 - Slides: http://databio.org/slides/pipeline_pepatac.html
-- Tutorial: https://github.com/databio/atac_ebna2/blob/master/tutorial_basic.md
+- Tutorial (optional): https://github.com/databio/atac_ebna2/blob/master/tutorial_basic.md
 
 ## Lecture 3 - ATAC-seq downstream processing
 
