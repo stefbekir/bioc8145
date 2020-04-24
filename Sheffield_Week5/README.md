@@ -39,16 +39,15 @@ The assignment is due: Monday 04/27/2020
 - Slides: http://databio.org/slides/pipeline_pepatac.html
 - Tutorial (optional): https://github.com/databio/atac_ebna2/blob/master/tutorial_basic.md
 
-## Lecture 3 - ATAC-seq downstream processing
+## Lecture 3 - ATAC-seq downstream analysis
 
 ### Topics
 - Differential analysis
-- Visualization
-- Motif analysis
-- Footprinting
+- Defining consensus peaks
 - Clustering
-- Enrichment analysis: GREAT and LOLA
+- Footprinting
+- Analysis of regions of interest
 
 ### Resources
-- Slides: (pending)
+- Slides: [Downstream ATAC analysis](http://databio.org/slides/downstream_atac_analysis.html)
 - Tutorial: [R_analysis_tutorial.md](R_analysis_tutorial.md)
