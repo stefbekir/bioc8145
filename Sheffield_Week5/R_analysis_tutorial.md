@@ -2,15 +2,16 @@
 
 ## Introduction and setup
 
-On rivanna we can load up R like this:
+For this vignette, we're working with small data and it can be done on a local computer, so you may be better off running it locally. However, if you want to use rivanna, you could load up R like this:
 
 ```
 module load gcc/8.3.0
 module load intel/18.0 intelmpi/18.0 R/3.6.0
 ```
 
-Next, navigate to a folder where you want to run this tutorial:
+Navigate to a folder where you want to run this tutorial:
 ```
+mkdir atacseq_tutorial
 cd atacseq_tutorial
 ```
 
