@@ -208,6 +208,9 @@ Seurat offers several non-linear dimensional reduction techniques, such as tSNE 
 # 'umap-learn')
 neuron.1k <- RunUMAP(neuron.1k, dims = 1:15)
 DimPlot(neuron.1k, reduction = "umap")
+pdf(file = "./02_figures/2020.04.dimplot.15dim.neuron.1k.pdf")
+DimPlot(neuron.1k, reduction = "umap")
+dev.off()
 ```
 # Finding cluster biomarkers
 Finding differentially expressed features (cluster biomarkers)
