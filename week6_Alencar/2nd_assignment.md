@@ -194,7 +194,7 @@ rm(plot1, plot2)
 ### Clustering the cells
 Seurat v3 applies a graph-based clustering approach, building upon initial strategies in [Macosko et al](https://www.cell.com/fulltext/S0092-8674(15)00549-8). Importantly, the distance metric which drives the clustering analysis (based on previously identified PCs) remains the same. However, the approach to partioning the cellular distance matrix into clusters has dramatically improved. Their methods has been highly influenced by several papers in applied graph-based clustering in scRNA-seq and CyTOF data. Briefly, these methods embed cells in a graph structure - for example a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar feature expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’.
 ```
-neuron.1k <- FindNeighbors(neuron.1k, dims = 1:10)
+neuron.1k <- FindNeighbors(neuron.1k, dims = 1:15)
 neuron.1k <- FindClusters(neuron.1k, resolution = 0.5)
 # Look at cluster IDs of the first 5 cells
 head(Idents(neuron.1k), 5)
@@ -206,7 +206,7 @@ Seurat offers several non-linear dimensional reduction techniques, such as tSNE 
 ```
 # If you haven't installed UMAP, you can do so via reticulate::py_install(packages =
 # 'umap-learn')
-neuron.1k <- RunUMAP(neuron.1k, dims = 1:10)
+neuron.1k <- RunUMAP(neuron.1k, dims = 1:15)
 DimPlot(neuron.1k, reduction = "umap")
 ```
 # Finding cluster biomarkers
