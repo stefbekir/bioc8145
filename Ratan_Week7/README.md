@@ -15,7 +15,10 @@ This lecture will focus on the detection of single nucleotide variants (SNVs). A
 
 ## Lecture 2: Structural variant detection
 
-This lecture will focus on detection of structural variants. We will discuss the basics of SV detection using paired-end reads, and learn the advantages and disadvatages of a few of the methods developed for it.
+This lecture will focus on detection of structural variants. We will discuss the basics of SV detection using paired-end reads, and learn the advantages and disadvantages of a few of the methods developed for it.
+
+* [Slides](https://docs.google.com/presentation/d/18dKVBiAMO1SrmTyljD5uVJY2_0Gk7puYowC4UKFPUh0/edit?usp=sharing)
+* [Tutorial](Tutorial2.md)
 
 ## Lecture 3: Miscellaneous topics 
 
