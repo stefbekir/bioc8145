@@ -44,7 +44,7 @@ library(tidyverse)
 library(patchwork) #you can also use cowplot::plot_grid if your prefer, but this one has some incredible features
 
 #Load the neuron dataset
-neuron.data <- Read10X(data.dir = ".")
+neuron.data <- Read10X(data.dir = "./00_input_data/neuron_1k_filtered_feature_bc_matrix")
 # Initialize the Seurat object with the raw (non-normalized data).
 neuron <- CreateSeuratObject(counts = neuron.data, project = "pbmc3k", min.cells = 3, min.features = 200)
 # You can add metadata to your data here.
