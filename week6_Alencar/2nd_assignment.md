@@ -44,6 +44,9 @@ library(tidyverse)
 library(patchwork) #you can also use cowplot::plot_grid if your prefer, but this one has some incredible features
 
 #Load the neuron dataset
+# ASSUMING YOU CREATED A PROJECT STRUCTURE SIMILAR TO MINE /path/to/folder/202005_scRNA_seq_for_class/202004_1k_v3_neuron_data_analysis
+# and your project in the 202004_1k_v3_neuron_data_analysis. If your structure is different, just make sure that you are pointing the 
+# `Read10x` function to the correct folder
 neuron.data <- Read10X(data.dir = "./00_input_data/neuron_1k_filtered_feature_bc_matrix")
 # Initialize the Seurat object with the raw (non-normalized data).
 neuron <- CreateSeuratObject(counts = neuron.data, project = "pbmc3k", min.cells = 3, min.features = 200)
