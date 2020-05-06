@@ -49,9 +49,9 @@ library(patchwork) #you can also use cowplot::plot_grid if your prefer, but this
 # `Read10x` function to the correct folder
 neuron.data <- Read10X(data.dir = "./00_input_data/neuron_1k_filtered_feature_bc_matrix")
 # Initialize the Seurat object with the raw (non-normalized data).
-neuron <- CreateSeuratObject(counts = neuron.data, project = "pbmc3k", min.cells = 3, min.features = 200)
+neuron.1k <- CreateSeuratObject(counts = neuron.data, project = "pbmc3k", min.cells = 3, min.features = 200)
 # You can add metadata to your data here.
-neuron
+neuron.1k
 ```  
 
 **Question 2: Does your Seurat object detects the same number of cells that cellranger does? If not, what would be the reason?**
