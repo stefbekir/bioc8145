@@ -24,3 +24,5 @@ This lecture will focus on detection of structural variants. We will discuss the
 
 This lecture discusses topics related to the first two lectures, including target capture experiments, variant detection in cancer genomics, the GATK workflows for germline and somatic calling, alignment-free genotyping and long-read sequencing.
 
+* [Slides](https://docs.google.com/presentation/d/1vSb5g0aCCAQqVeRPzNsEXLFW5Zyv8P08m1b-g5LlOeE/edit?usp=sharing)
+* [Tutorial](Tutorial3.md)
