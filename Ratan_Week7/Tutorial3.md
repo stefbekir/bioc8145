@@ -1,14 +1,29 @@
-In this tutorial, we will step through using `MuTect2` for somatic SNV and indel calling. `MuTect2` combines the DREAM challenge-winning somatic genotyping engine of the original `MuTect` with the haplotype-based `GATK HaplotypeCaller` backend. 
+In this tutorial, we will step through using `MuTect2` for somatic SNV and indel calling. `MuTect2` combines the DREAM challenge-winning somatic genotyping engine of the original `MuTect` with the haplotype-based `GATK HaplotypeCaller` backend. Then we will use `Freebayes` and `DNAcopy` to identify loss-of-heterozygosity events in the tumor sample.
 
 ## 0. Setup
 
-We will use [GATK](https://gatk.broadinstitute.org/hc/en-us) to work with this genomic data. It is available on `Rivanna` as a module, so let us load it.
+We will use [GATK](https://gatk.broadinstitute.org/hc/en-us) and [FreeBayes](https://github.com/ekg/freebayes)  to work with these genomic data. They are available on `Rivanna` as modules, so let us load them.
 
 ```bash
-module load gatk/4.1.6.0 
+module load gatk/4.1.6.0 freebayes/0.9.9
 ```
 
-Let's create a directory where we are going to run all our analyses for today.
+I have compiled [vcflib](https://github.com/ekg/vcflib) for you,  and all the binaries are available in the folder `/project/bioc8145/Ratan_Week7/bin`. 
+
+An easy way to use them is to add that directory to the PATH variable. Every time we use an executable, all POSIX compliant systems (this includes  Mac OS and Linux systems), look in all directories pointed to by PATH to search for the binary.
+
+```bash
+export PATH=/project/bioc8145/Ratan_Week7/bin:$PATH
+```
+
+We are also going to use R to detect LoH events. Lets load R, and make sure that you can use the libraries I have installed.
+
+```bash
+module load gcc/7.1.0 R/3.6.2
+export R_LIBS_USER=/project/bioc8145/Ratan_Week7/r_libs
+```
+
+Now, let's create a directory where we are going to run all our analyses for today.
 
 ```bash
 mkdir somatic_detection
@@ -71,3 +86,65 @@ gatk FilterMutectCalls -R ${reference} -V somatic.vcf.gz \
 
 The above are the basic steps to be taken in somatic SNV calling. In your project, you will want to use more filters such as those that learn any strand-specific errors in your sequencing protocol or use an estimate of cross-sample contamination.  This GATK Best Practices tutorial](https://gatk.broadinstitute.org/hc/en-us/articles/360035889791?id=11136) explains those filters and how to use them in more detail.
 
+## 2. LoH events using DNAcopy
+
+Loss of heterozygosity (LOH) is a common genetic event in cancer development, and is known to be involved in the somatic loss of wild-type alleles in many inherited cancer syndromes. We will take the following steps to identify LoH events in a tumor.
+
+1. Identify heterozygous variants in the germline
+2. Calculate the fraction of reads in the tumor that support each of the alleles at each of those loci.
+3. Identify large stretches of the genome where the ratios are similar.
+
+So, first let us use `freebayes` to identify variants in the normal and the tumor genome assuming both of them are diploid.
+
+```bash
+freebayes -f ${reference} -r 6 --no-indels --no-mnps --no-complex \
+    ${normal_bam} ${tumor_bam} \
+| vcffilter -f "QUAL > 20" \
+| vcf2tsv -g \
+| cut -f 1,2,4,5,48,49,53,56 > snp_calls.tsv
+```
+
+Now, in R, we are going to limit ourselves to heterozygous SNPs in the germline. Then we are going to use DNAcopy to segment the genome into regions where the ratio is approximately similar.
+
+```R
+library(tidyverse)
+
+data <- read_tsv("snp_calls.tsv") %>% 
+        mutate(`#CHROM` = as.character(`#CHROM`),
+               AO = as.numeric(AO), RO = as.numeric(RO))
+
+norm <- data %>% filter(SAMPLE == "norm") %>% 
+        rename("NAO"="AO", "NGT"="GT", "NRO"="RO") %>% select(-SAMPLE)
+tumor <- data %>% filter(SAMPLE == "tumor") %>% 
+        rename("TAO"="AO", "TGT"="GT", "TRO"="RO") %>% select(-SAMPLE)
+
+df <- left_join(norm, tumor) %>% 
+      filter(NGT == "0/1" & !is.na(TGT)) %>%
+      mutate(normal_vaf = NAO/(NAO + NRO), tumor_vaf = TAO/(TAO + TRO)) %>%
+      select(-NAO, -NGT, -NRO, -TAO, -TGT, -TRO) %>%
+      mutate(normal_vaf = abs(0.5 - normal_vaf),
+             tumor_vaf = abs(0.5 - tumor_vaf))
+
+library(DNAcopy)
+
+LOH_CNA.object <- CNA(genomdat = df$tumor_vaf, chrom = df$`#CHROM`, 
+                      maploc = df$POS, data.type = 'binary')
+
+# Run segmentation analysis
+LOH.segmentation <- segment(LOH_CNA.object)
+LOH.segmentation.output <- LOH.segmentation$output
+
+# Extract columns needed to plot segmentation results, change column names
+LOH_segments <- select(LOH.segmentation.output, chrom, loc.start, loc.end, seg.mean)
+colnames(LOH_segments) <- c("CHROM", "START", "END", "MEAN")
+
+LOH_segments$TOP <- .5 + LOH_segments$MEAN
+LOH_segments$BOTTOM <- .5 - LOH_segments$MEAN
+
+pdf("LoH.pdf")
+ggplot(LOH_segments, aes(x = START, xend=END, y=MEAN, yend=MEAN)) +
+    geom_segment()
+dev.off()
+```
+
+The segments where the mean is close to 0.5 are region of LoH, i.e these are the regions where we see only one allele.
