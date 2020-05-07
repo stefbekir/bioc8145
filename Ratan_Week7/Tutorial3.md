@@ -21,7 +21,7 @@ To keep things quick enough for the tutorial, we will use the BAM file of alignm
 
 I have also downloaded a resource file that contains the location and allele frequency of all identified germline variants on `chr6` from [gnomAD](https://gnomad.broadinstitute.org). This is used as one of the filters in `MuTect2`. This file is available on `Rivanna` here `/project/bioc8145/Ratan_Week7/cell_line/af-only-gnomad.chr6.raw.sites.vcf.gz` for your use.
 
-First, we create a VCF file that contains germline and artifactual sites from the normal samples in our dataset. In our case, we have just one sample, so this is not as effective, but this can help identify and eliminate calling artefacts in cohorts. The alignments are done using `/project/genomes/Homo_sapiens/Ensembl/GRCh37/Sequence/WholeGenomeFasta/genome.fa` as the reference genome, so we use `-L 6` to restrict all analyses to `chr6`. The default value of `--min-sample-count` option is 2, but we will set to it 1, because we have only one normal sample.
+First, we create a VCF file that contains germline and artifactual sites from the normal samples in our dataset. In our case, we have just one sample, so this is not as effective, but this can help identify and eliminate calling artifacts in cohorts. The alignments are done using `/project/genomes/Homo_sapiens/Ensembl/GRCh37/Sequence/WholeGenomeFasta/genome.fa` as the reference genome, so we use `-L 6` to restrict all analyses to `chr6`. The default value of `--min-sample-count` option is 2, but we will set to it 1, because we have only one normal sample.
 
 
 ```bash
@@ -69,5 +69,5 @@ gatk FilterMutectCalls -R ${reference} -V somatic.vcf.gz \
   -O filtered.vcf.gz -L 6
 ```
 
-This gives you a taste of the steps to be taken in somatic SNV calling. In your project, you will want to use more filters such as those that learn any strand-specific errors in your sequencing protocol, or use an estimate of cross-sample contamination.  This GATK Best Practices tutorial](https://gatk.broadinstitute.org/hc/en-us/articles/360035889791?id=11136) explains those filters and how to use them in more detail.
+The above are the basic steps to be taken in somatic SNV calling. In your project, you will want to use more filters such as those that learn any strand-specific errors in your sequencing protocol or use an estimate of cross-sample contamination.  This GATK Best Practices tutorial](https://gatk.broadinstitute.org/hc/en-us/articles/360035889791?id=11136) explains those filters and how to use them in more detail.
 
