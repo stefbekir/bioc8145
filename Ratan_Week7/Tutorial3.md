@@ -120,15 +120,39 @@ tumor <- data %>% filter(SAMPLE == "tumor") %>%
 
 df <- left_join(norm, tumor) %>% 
       filter(NGT == "0/1" & !is.na(TGT)) %>%
+      mutate(normal_depth = (NAO + NRO), tumor_depth = (TAO + TRO)) %>%
+      filter(normal_depth > 20 & tumor_depth > 20) %>%
       mutate(normal_vaf = NAO/(NAO + NRO), tumor_vaf = TAO/(TAO + TRO)) %>%
-      select(-NAO, -NGT, -NRO, -TAO, -TGT, -TRO) %>%
-      mutate(normal_vaf = abs(0.5 - normal_vaf),
-             tumor_vaf = abs(0.5 - tumor_vaf))
+      filter(normal_vaf > 0.3 & normal_vaf < 0.7) %>%
+      select(-NAO, -NGT, -NRO, -TAO, -TGT, -TRO, -normal_depth, -tumor_depth) 
 
+png("vaf.png", width=960, height=240)
+ggplot(df) + 
+  geom_point(aes(POS, normal_vaf), color="red") +
+  geom_point(aes(POS, tumor_vaf), color="blue") 
+dev.off()
+```
+
+![VAF in normal, tumor](vaf.png)
+
+```R
+tbl <- df %>% mutate(normal_vaf = abs(0.5 - normal_vaf),
+                     tumor_vaf = abs(0.5 - tumor_vaf))
+
+png("input.png", width=960, height=240)
+ggplot(tbl) + 
+  geom_point(aes(POS, normal_vaf), color="red") +
+  geom_point(aes(POS, tumor_vaf), color="blue") 
+dev.off()
+```
+
+![Input](input.png)
+
+```R
 library(DNAcopy)
 
-LOH_CNA.object <- CNA(genomdat = df$tumor_vaf, chrom = df$`#CHROM`, 
-                      maploc = df$POS, data.type = 'binary')
+LOH_CNA.object <- CNA(genomdat = tbl$tumor_vaf, chrom = tbl$`#CHROM`, 
+                      maploc = tbl$POS, data.type = 'binary')
 
 # Run segmentation analysis
 LOH.segmentation <- segment(LOH_CNA.object)
@@ -141,10 +165,15 @@ colnames(LOH_segments) <- c("CHROM", "START", "END", "MEAN")
 LOH_segments$TOP <- .5 + LOH_segments$MEAN
 LOH_segments$BOTTOM <- .5 - LOH_segments$MEAN
 
-pdf("LoH.pdf")
-ggplot(LOH_segments, aes(x = START, xend=END, y=MEAN, yend=MEAN)) +
-    geom_segment()
+png("loh.png", width=960, height=240)
+ggplot() + 
+  geom_point(aes(POS, normal_vaf), color="red", data=tbl) +
+  geom_point(aes(POS, tumor_vaf), color="blue", data=tbl) +
+  geom_segment(aes(x = START, xend=END, y=MEAN, yend=MEAN), data=LOH_segments,
+               size=3)
 dev.off()
 ```
+
+![LoH plot](loh.png)
 
 The segments where the mean is close to 0.5 are region of LoH, i.e these are the regions where we see only one allele.
