@@ -1,7 +1,15 @@
 
 #you need to order the gene list:
-gene.list= 2^DE.results.all.4reps.lattice$log2FoldChange * 
+#gene.list= 2^DE.results.all.4reps.lattice$log2FoldChange * 
+#                 -log(DE.results.all.4reps.lattice$pvalue, base = 10)
+
+#Modified on 220112 need to check
+x =  DE.results.all.4reps.lattice$log2FoldChange 
+x[x < 0] <- -1
+x[x >= 0] <- 1
+gene.list= x *(2^abs(DE.results.all.4reps.lattice$log2FoldChange)) *
                  -log(DE.results.all.4reps.lattice$pvalue, base = 10)
+
 
 names(gene.list) = row.names(DE.results.all.4reps.lattice)
 
